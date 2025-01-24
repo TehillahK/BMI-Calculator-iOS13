@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var weightSlider: UISlider!
     
-    var bmi : Float = 0.0
+    var logic = CalculatorLogic()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         
         
         
-        bmi =  weightSlider.value / pow(heightSlider.value,2)
+        logic.calculate(weightSlider.value, heightSlider.value)
         
         self.performSegue(withIdentifier: "goToResult", sender: self)
         
@@ -68,7 +68,9 @@ class ViewController: UIViewController {
         // Pass the selected object to the new view controller.
         if segue.identifier == "goToResult"{
             let destinationVC = segue.destination as! ResultsViewController
-            destinationVC.bmi = bmi
+            destinationVC.bmi = logic.bmi?.value ?? 0.0
+            destinationVC.advice = logic.bmi?.advice ?? ""
+            destinationVC.color = logic.bmi?.color ?? UIColor.clear
         }
     }
     

@@ -12,12 +12,18 @@ class ResultsViewController: UIViewController {
     
     @IBOutlet weak var bmiValLabel: UILabel!
     
+    @IBOutlet weak var adviceLabel: UILabel!
+    
     var bmi: Float = 0.0
+    var advice: String = ""
+    var color: UIColor = UIColor.clear
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = color
         let bmiStr = String(format:"%.1f",bmi)
         bmiValLabel.text = bmiStr
+        adviceLabel.text = advice
 
         
     }
