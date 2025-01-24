@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var weightSlider: UISlider!
     
+    var bmi : Float = 0.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -47,10 +49,27 @@ class ViewController: UIViewController {
     
     @IBAction func calcButtonPressed(_ sender: UIButton) {
         
-        let bmiVal =  weightSlider.value / pow(heightSlider.value,2)
+      //  let secondVC = SecondViewController()
         
-        print(bmiVal)
         
+        
+        bmi =  weightSlider.value / pow(heightSlider.value,2)
+        
+        self.performSegue(withIdentifier: "goToResult", sender: self)
+        
+      
+        
+      //  self.present(secondVC, animated: true)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "goToResult"{
+            let destinationVC = segue.destination as! ResultsViewController
+            destinationVC.bmi = bmi
+        }
     }
     
 }
